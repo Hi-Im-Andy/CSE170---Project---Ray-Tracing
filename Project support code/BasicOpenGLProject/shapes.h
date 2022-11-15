@@ -4,6 +4,19 @@
 #include <iostream>
 using namespace std;
 
+class Background{
+    vector <float> floor;
+    vector <float> floor_color;
+    vector <float> walls; 
+    vector <float> wall_color;
+
+// public:
+//     Background();
+//     ~Background();
+//     vector<float> create_walls();
+//     vector<float> fill_walls();
+// };
+
 ///////////////////////////////// Parent Class /////////////////////////////////
 
 class Rectangle{
