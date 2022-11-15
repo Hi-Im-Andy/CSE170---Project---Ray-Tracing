@@ -1,23 +1,24 @@
 #include "shapes.h"
+#include <iostream>
 
 ///////////////////////////////// Rectangle /////////////////////////////////
 Rectangle::Rectangle(){
     length = 1;
     width = 1;
     height = 1;
-};
+}
 
 Rectangle::~Rectangle(){
     vertices.clear();
     color.clear();
-};
+}
 
 void Rectangle::push_vert(vert corner){
     vertices.push_back(corner.x);
     vertices.push_back(corner.y);
     vertices.push_back(corner.z);
     vertices.push_back(1);
-};
+}
 
 vector<float> Rectangle::update(){
     vertices.clear();
@@ -99,7 +100,8 @@ vector<float> Rectangle::update(){
     push_vert(frt);
     push_vert(frb);
     push_vert(brb);
-};
+    return vertices;
+}
 
 vector<float> Rectangle::fill(float r, float g, float b){ // Populates the color vector with desired color
     color.clear();
@@ -110,16 +112,16 @@ vector<float> Rectangle::fill(float r, float g, float b){ // Populates the color
         color.push_back(1.0f);
     }
     return color;
-}; 
+}
 
 void Rectangle::print(){
     for (auto i : vertices){
         cout << i << ", ";
     }
-};
+}
 
 void Rectangle::delete_vertices(){
     vertices.clear();
-};
+}
 
 ///////////////////////////////// Rectangle /////////////////////////////////

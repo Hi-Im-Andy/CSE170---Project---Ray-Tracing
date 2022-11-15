@@ -6,7 +6,9 @@
 #include <iostream>
 #include "shader.h"
 #include "shaderprogram.h"
-#include "torus.h"
+#include "shapes.h"
+#include "shapes.cpp"
+// #include "torus.h"
 #include <vector>
 
 /*=================================================================================================
@@ -30,7 +32,6 @@ bool mouse_states[8];
 
 // Other parameters
 bool draw_wireframe = false;
-
 /*=================================================================================================
 	SHADERS & TRANSFORMATIONS
 =================================================================================================*/
@@ -98,13 +99,15 @@ void CreateShaders( void )
 /*=================================================================================================
 	BUFFERS
 =================================================================================================*/
-torus T; // Using a torus class I made stored in torus.h
+// torus T; // Using a torus class I made stored in torus.h
+// Rectangle T;
 
+Rectangle T;
 void CreateAxisBuffers( void )
 {
 	// Making the vector that holds the vertices
 	std::vector<float> vec = T.update(); // Getting the vector from the torus class
-	std::vector<float> color = T.color_fill(); // Color vector
+	std::vector<float> color = T.fill(1, 1, 1); // Color vector
 	std::cout << " updated " << std::endl;
 
 	glGenVertexArrays( 1, &axis_VAO );
@@ -169,47 +172,47 @@ void keyboard_func( unsigned char key, int x, int y )
 			break;
 		}
 
-		case 'w': // Increment r radius (by a small value)
-		{
-			T.change_r(T.get_r() + 0.25); // Gets the current r and adds 0.25 to it then passes its new value
-			CreateAxisBuffers();
-			break;
-		}
+		// case 'w': // Increment r radius (by a small value)
+		// {
+		// 	T.change_r(T.get_r() + 0.25); // Gets the current r and adds 0.25 to it then passes its new value
+		// 	CreateAxisBuffers();
+		// 	break;
+		// }
 		
-		case 's': // Decrement r radius (by a small value)
-		{
-			T.change_r(T.get_r() - 0.25);
-			CreateAxisBuffers();
-			break;
-		}
+		// case 's': // Decrement r radius (by a small value)
+		// {
+		// 	T.change_r(T.get_r() - 0.25);
+		// 	CreateAxisBuffers();
+		// 	break;
+		// }
 		
-		case 'q': // Increment number of triangles
-		{
-			T.change_n(T.get_n() + 10);
-			CreateAxisBuffers();
-			break;
-		}
+		// case 'q': // Increment number of triangles
+		// {
+		// 	T.change_n(T.get_n() + 10);
+		// 	CreateAxisBuffers();
+		// 	break;
+		// }
 
-		case 'a': // Decrement number of triangles 
-		{
-			T.change_n(T.get_n() - 10);
-			CreateAxisBuffers();
-			break;
-		}
+		// case 'a': // Decrement number of triangles 
+		// {
+		// 	T.change_n(T.get_n() - 10);
+		// 	CreateAxisBuffers();
+		// 	break;
+		// }
 		
-		case 'e': // Increment the R radius (by a small value) 
-		{
-			T.change_R(T.get_R() + 0.25);
-			CreateAxisBuffers();
-			break;
-		}
+		// case 'e': // Increment the R radius (by a small value) 
+		// {
+		// 	T.change_R(T.get_R() + 0.25);
+		// 	CreateAxisBuffers();
+		// 	break;
+		// }
 		
-		case 'd': // Decrement the R radius (by a small value) 
-		{
-			T.change_R(T.get_R() - 0.25);
-			CreateAxisBuffers();
-			break;
-		}
+		// case 'd': // Decrement the R radius (by a small value) 
+		// {
+		// 	T.change_R(T.get_R() - 0.25);
+		// 	CreateAxisBuffers();
+		// 	break;
+		// }
 
 		// Exit on escape key press
 		case '\x1B':
