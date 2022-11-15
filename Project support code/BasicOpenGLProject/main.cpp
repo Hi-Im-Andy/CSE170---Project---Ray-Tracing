@@ -106,7 +106,6 @@ void CreateAxisBuffers( void )
 	std::vector<float> vec = T.update(); // Getting the vector from the torus class
 	std::vector<float> color = T.color_fill(); // Color vector
 	std::cout << " updated " << std::endl;
-	// T.print();
 
 	glGenVertexArrays( 1, &axis_VAO );
 	glBindVertexArray( axis_VAO );
