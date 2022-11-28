@@ -102,10 +102,11 @@ void CreateShaders( void )
 // torus T; // Using a torus class I made stored in torus.h
 // Rectangle T;
 
-Rectangle T;
+Pyramide T;
 void CreateAxisBuffers( void )
 {
 	// Making the vector that holds the vertices
+
 	std::vector<float> vec = T.update(); // Getting the vector from the torus class
 	std::vector<float> color = T.fill(1, 1, 1); // Color vector
 	std::cout << " updated " << std::endl;
@@ -317,7 +318,7 @@ void display_func( void )
 		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
 	glBindVertexArray( axis_VAO );
-	glDrawArrays( GL_TRIANGLE_STRIP, 0, vec.size ()); //Similar result with GL_TRIANGLE_STRIP and GL_TRIANGLES
+	glDrawArrays( GL_TRIANGLES, 0, vec.size ()); //Similar result with GL_TRIANGLE_STRIP and GL_TRIANGLES
 
 	glBindVertexArray( 0 );
 

@@ -3,7 +3,9 @@
 #include <vector>
 #include <iostream>
 using namespace std;
+///////////////////////////////// Background /////////////////////////////////
 
+// Comment out to show the shapes better
 // class Background{
 //     vector <float> floor;
 //     vector <float> floor_color;
@@ -17,7 +19,12 @@ using namespace std;
 //     vector<float> fill_walls();
 // };
 
-///////////////////////////////// Parent Class /////////////////////////////////
+///////////////////////////////// Shapes /////////////////////////////////
+// Making the subclasses for each shape
+// Shapes - Rectangle, sphere, cone, pyramid, cylinder
+
+
+///////////////////////////////// Rectangle Class /////////////////////////////////
 
 class Rectangle{
 vector <float> vertices; // Vector used to store the vertices
@@ -36,18 +43,49 @@ public:
     void delete_vertices();
 };
 
-///////////////////////////////// Shapes /////////////////////////////////
-// Making the subclasses for each shape
-// Shapes - Rectangle, sphere, cone, pyramide, cylinder
-
-
-///////////////////////////////// Rectangle /////////////////////////////////
-
 ///////////////////////////////// Sphere /////////////////////////////////
+
+class Sphere{
+    vector <float> vertices;
+    vector <float> color;
+    struct vert {float x, y, z, w;};
+    float r, n, u, v;
+
+public:
+    Sphere();
+    ~Sphere();
+    void push_vert(vert corner);
+    vector <float> points(int i, int j);
+    void sort_verts(vector<float> temp);
+    vector<float> update();
+    vector<float> fill(float r, float g, float b);
+    void print();
+    void delete_vertices();
+};
 
 ///////////////////////////////// Cone /////////////////////////////////
 
-///////////////////////////////// Pyramide /////////////////////////////////
+
+
+///////////////////////////////// Pyramid /////////////////////////////////
+
+class Pyramid{
+vector <float> vertices; // Vector used to store the vertices
+vector <float> color; // Vector used to store the color of the vertices
+struct vert {float x, y, z, w;}; // Struct used to store 4 variables of the point
+float l, w, h;
+
+public:
+    Pyramid(); // Constructor
+    ~Pyramid(); // Deconstructor
+
+    void push_vert (vert corner);
+    vector<float> update();
+    vector<float> fill(float r, float g, float b);
+    void print();
+    void delete_vertices();
+};
+
 
 ///////////////////////////////// Cylinder /////////////////////////////////
 
