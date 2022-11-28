@@ -6,18 +6,27 @@ using namespace std;
 ///////////////////////////////// Background /////////////////////////////////
 
 // Comment out to show the shapes better
-// class Background{
-//     vector <float> floor;
-//     vector <float> floor_color;
-//     vector <float> walls; 
-//     vector <float> wall_color;
+class Background{
+    struct vert {float x, y, z, w;};
+    float w, l, h;
+    vector <float> floor;
+    vector <float> floor_color;
+    vector <float> walls; 
+    vector <float> wall_color;
 
-// public:
-//     Background();
-//     ~Background();
-//     vector<float> create_walls();
-//     vector<float> fill_walls();
-// };
+public:
+    Background();
+    ~Background();
+    void push_vert_walls (vert corner);
+    void push_vert_floor (vert corner);
+    void create_walls();
+    void fill_walls();
+    void create_floor();
+    void fill_floor();
+    vector<float> update();
+    vector<float> fill(float r, float g, float b);
+    
+};
 
 ///////////////////////////////// Shapes /////////////////////////////////
 // Making the subclasses for each shape

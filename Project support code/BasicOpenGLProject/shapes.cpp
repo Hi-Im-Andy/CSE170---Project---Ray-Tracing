@@ -1,6 +1,134 @@
 #include "shapes.h"
 #include <iostream>
 
+
+///////////////////////////////// Background /////////////////////////////////
+Background::Background(){
+    w = 10;
+    l = 10;
+    h = 10;
+}
+
+Background::~Background(){
+    floor.clear();
+    floor_color.clear();
+    walls.clear();
+    wall_color.clear();
+}
+
+void Background::push_vert_walls(vert corner){
+    walls.push_back(corner.x);
+    walls.push_back(corner.y);
+    walls.push_back(corner.z);
+    walls.push_back(1);
+}
+void Background::push_vert_floor(vert corner){
+    floor.push_back(corner.x);
+    floor.push_back(corner.y);
+    floor.push_back(corner.z);
+    floor.push_back(1);
+}
+
+void Background::create_walls(){
+    vert bl, br, tl, tr;
+
+    bl.y = 0;
+    bl.z = 0;
+
+    br.y = w;
+    br.z = 0;
+
+    tl.y = 0;
+    tl.z = h;
+
+    tr.y = w;
+    tr.z = h;
+
+    bl.x = 0;
+    br.x = 0;
+    tl.x = 0;
+    tr.x = 0;
+
+    push_vert_walls(bl);
+    push_vert_walls(br);
+    push_vert_walls(tl);
+    push_vert_walls(bl);
+    push_vert_walls(tr);
+    push_vert_walls(tl);
+}
+
+void Background::create_floor(){
+    vert bl, br, fl, fr;
+    bl.x = 0;
+    bl.y = 0;
+
+    br.x = w;
+    br.y = 0;
+
+    fl.x = 0;
+    fl.y = l;
+
+    fr.x = w;
+    fr.y = l;
+
+    bl.z = 0;
+    br.z = 0;
+    fl.z = 0;
+    fr.z = 0;
+
+    push_vert_floor(bl);
+    push_vert_floor(br);
+    push_vert_floor(fl);
+    push_vert_floor(bl);
+    push_vert_floor(fr);
+    push_vert_floor(fl);
+}
+
+void Background::fill_walls(){
+    floor_color.clear();
+    for (auto i : floor){
+        floor_color.push_back(1.0f);
+        floor_color.push_back(1.0f);
+        floor_color.push_back(1.0f);
+        floor_color.push_back(1.0f);
+    }
+}
+
+void Background::fill_floor(){
+    wall_color.clear();
+    for (auto i : floor){
+        wall_color.push_back(1.0f);
+        wall_color.push_back(1.0f);
+        wall_color.push_back(1.0f);
+        wall_color.push_back(1.0f);
+    }
+}
+
+vector<float> Background::update(){
+    walls.clear();
+    floor.clear();
+    create_floor();
+    create_walls();
+    for (auto i : floor){
+        cout << i << endl;
+        walls.push_back(i);
+    }
+    return walls;
+}
+
+vector<float> Background::fill(float r, float g, float b){
+    fill_walls();
+    fill_floor();
+    for (auto i : floor_color){
+        wall_color.push_back(i);
+    }
+    return wall_color;
+}
+
+
+
+
+
 ///////////////////////////////// Rectangle /////////////////////////////////
 Rectangle::Rectangle(){
     length = 1;

@@ -102,7 +102,7 @@ void CreateShaders( void )
 // torus T; // Using a torus class I made stored in torus.h
 // Rectangle T;
 
-Pyramide T;
+Sphere T;
 void CreateAxisBuffers( void )
 {
 	// Making the vector that holds the vertices
