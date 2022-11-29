@@ -456,5 +456,3 @@ void Pyramid::print(){
 void Pyramid::delete_vertices(){
     vertices.clear();
 }
-
-///////////////////////////////// Cylinder /////////////////////////////////

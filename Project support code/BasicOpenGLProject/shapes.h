@@ -30,8 +30,7 @@ public:
 
 ///////////////////////////////// Shapes /////////////////////////////////
 // Making the subclasses for each shape
-// Shapes - Rectangle, sphere, cone, pyramid, cylinder
-
+// Shapes - Rectangle, sphere, cone, pyramid
 
 ///////////////////////////////// Rectangle Class /////////////////////////////////
 
@@ -94,7 +93,3 @@ public:
     void print();
     void delete_vertices();
 };
-
-
-///////////////////////////////// Cylinder /////////////////////////////////
-
