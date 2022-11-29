@@ -30,34 +30,6 @@ void Background::push_vert_floor(vert corner){
 }
 
 void Background::create_walls(){
-    vert bl, br, tl, tr;
-
-    bl.y = 0;
-    bl.z = 0;
-
-    br.y = w;
-    br.z = 0;
-
-    tl.y = 0;
-    tl.z = h;
-
-    tr.y = w;
-    tr.z = h;
-
-    bl.x = 0;
-    br.x = 0;
-    tl.x = 0;
-    tr.x = 0;
-
-    push_vert_walls(bl);
-    push_vert_walls(br);
-    push_vert_walls(tl);
-    push_vert_walls(bl);
-    push_vert_walls(tr);
-    push_vert_walls(tl);
-}
-
-void Background::create_floor(){
     vert bl, br, fl, fr;
     bl.x = 0;
     bl.y = 0;
@@ -79,9 +51,37 @@ void Background::create_floor(){
     push_vert_floor(bl);
     push_vert_floor(br);
     push_vert_floor(fl);
-    push_vert_floor(bl);
     push_vert_floor(fr);
     push_vert_floor(fl);
+    push_vert_floor(br);
+}
+
+void Background::create_floor(){
+    vert bl, br, tl, tr;
+
+    bl.x = 0;
+    bl.z = 0;
+
+    br.x = w;
+    br.z = 0;
+
+    tl.x = 0;
+    tl.z = h;
+
+    tr.x = w;
+    tr.z = h;
+
+    bl.y = 0;
+    br.y = 0;
+    tl.y = 0;
+    tr.y = 0;
+
+    push_vert_walls(tr);
+    push_vert_walls(tl);
+    push_vert_walls(br);
+    push_vert_walls(bl);
+    push_vert_walls(br);
+    push_vert_walls(tl);
 }
 
 void Background::fill_walls(){
@@ -97,8 +97,8 @@ void Background::fill_walls(){
 void Background::fill_floor(){
     wall_color.clear();
     for (auto i : floor){
-        wall_color.push_back(1.0f);
-        wall_color.push_back(1.0f);
+        wall_color.push_back(0.2f);
+        wall_color.push_back(0.2f);
         wall_color.push_back(1.0f);
         wall_color.push_back(1.0f);
     }
@@ -110,7 +110,6 @@ vector<float> Background::update(){
     create_floor();
     create_walls();
     for (auto i : floor){
-        cout << i << endl;
         walls.push_back(i);
     }
     return walls;
