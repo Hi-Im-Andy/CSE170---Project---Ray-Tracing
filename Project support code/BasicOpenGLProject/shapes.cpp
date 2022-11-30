@@ -137,6 +137,9 @@ Rectangle::Rectangle(){
     length = 1;
     width = 1;
     height = 1;
+    // x = -5;
+    // y = -5;
+    // z = -10;
 }
 
 Rectangle::~Rectangle(){
@@ -260,6 +263,9 @@ void Rectangle::delete_vertices(){
 Sphere::Sphere(){
     r = 1;
     n = 100;
+    // x = -5;
+    // y = -5;
+    // z = -10;
 }
 
 Sphere::~Sphere(){
@@ -365,6 +371,9 @@ Pyramid::Pyramid(){
     l = 1;
     w = 1;
     h = 1;
+    // x = -5;
+    // y = -5;
+    // z = -10;
 }
 
 Pyramid::~Pyramid(){
