@@ -7,6 +7,9 @@ Background::Background(){
     w = 10;
     l = 10;
     h = 10;
+    x = -5;
+    y = -5;
+    z = -10;
 }
 
 Background::~Background(){
@@ -22,6 +25,7 @@ void Background::push_vert_walls(vert corner){
     walls.push_back(corner.z);
     walls.push_back(1);
 }
+
 void Background::push_vert_floor(vert corner){
     floor.push_back(corner.x);
     floor.push_back(corner.y);
@@ -31,22 +35,22 @@ void Background::push_vert_floor(vert corner){
 
 void Background::create_walls(){
     vert bl, br, fl, fr;
-    bl.x = 0;
-    bl.y = 0;
+    bl.x = x;
+    bl.y = y;
 
-    br.x = w;
-    br.y = 0;
+    br.x = x + w;
+    br.y = y;
 
-    fl.x = 0;
-    fl.y = l;
+    fl.x = x;
+    fl.y = y + l;
 
-    fr.x = w;
-    fr.y = l;
+    fr.x = x + w;
+    fr.y = y + l;
 
-    bl.z = 0;
-    br.z = 0;
-    fl.z = 0;
-    fr.z = 0;
+    bl.z = z;
+    br.z = z;
+    fl.z = z;
+    fr.z = z;
 
     push_vert_floor(bl);
     push_vert_floor(br);
@@ -59,28 +63,28 @@ void Background::create_walls(){
 void Background::create_floor(){
     vert bl, br, tl, tr;
 
-    bl.x = 0;
-    bl.z = 0;
+    bl.x = x;
+    bl.z = z;
 
-    br.x = w;
-    br.z = 0;
+    br.x = x + w;
+    br.z = z;
 
-    tl.x = 0;
-    tl.z = h;
+    tl.x = x;
+    tl.z = z + h;
 
-    tr.x = w;
-    tr.z = h;
+    tr.x = x + w;
+    tr.z = z + h;
 
-    bl.y = 0;
-    br.y = 0;
-    tl.y = 0;
-    tr.y = 0;
+    bl.y = y;
+    br.y = y;
+    tl.y = y;
+    tr.y = y;
 
-    push_vert_walls(tr);
     push_vert_walls(tl);
+    push_vert_walls(tr);
+    push_vert_walls(br);
     push_vert_walls(br);
     push_vert_walls(bl);
-    push_vert_walls(br);
     push_vert_walls(tl);
 }
 

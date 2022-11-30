@@ -9,6 +9,7 @@ using namespace std;
 class Background{
     struct vert {float x, y, z, w;};
     float w, l, h;
+    float x, y, z;
     vector <float> floor;
     vector <float> floor_color;
     vector <float> walls; 
