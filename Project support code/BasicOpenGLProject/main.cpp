@@ -100,7 +100,7 @@ void CreateShaders( void )
 	BUFFERS
 =================================================================================================*/
 
-Background T;
+Rectangle T;
 void CreateAxisBuffers( void )
 {
 	// Making the vector that holds the vertices

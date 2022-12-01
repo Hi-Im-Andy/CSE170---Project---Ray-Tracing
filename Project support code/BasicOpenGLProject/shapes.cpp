@@ -137,9 +137,9 @@ Rectangle::Rectangle(){
     length = 1;
     width = 1;
     height = 1;
-    // x = -5;
-    // y = -5;
-    // z = -10;
+    x = 0;
+    y = 0;
+    z = 0;
 }
 
 Rectangle::~Rectangle(){
@@ -158,78 +158,78 @@ vector<float> Rectangle::update(){
     vertices.clear();
     vert blb, brb, flb, frb, blt, brt, flt, frt;
     // Back left bottom
-    blb.x = 0;
-    blb.y = 0;
-    blb.z = 0;
+    blb.x = x;
+    blb.y = y;
+    blb.z = z;
     // back right bottom
-    brb.x = 0;
-    brb.y = width;
-    brb.z = 0;
+    brb.x = x;
+    brb.y = y + width;
+    brb.z = z;
     // front left bottom
-    flb.x = width;
-    flb.y = 0;
-    flb.z = 0;
+    flb.x = x + width;
+    flb.y = y;
+    flb.z = z;
     // front rigt top
-    frb.x = width;
-    frb.y = length;
-    frb.z = 0;
+    frb.x = x + width;
+    frb.y = y + length;
+    frb.z = z;
 
     // Top corners
     blt = blb;
-    blt.z = height;
+    blt.z = z + height;
     brt = brb;
-    brt.z = height;
+    brt.z = z + height;
     flt = flb;
-    flt.z = height;
+    flt.z = z + height;
     frt = frb;
-    frt.z = height;
+    frt.z = z + height;
 
     // Pushing them into the vector
     // Notation front/back , left/right, top/bottom
     // ex. blb is back left bottom
-    // Bottom face
+    // Back face
     push_vert(blb);
     push_vert(brb);
     push_vert(flb);
-    push_vert(flb);
     push_vert(frb);
+    push_vert(flb);
     push_vert(brb);
-
-    // Top face
-    push_vert(blt);
-    push_vert(brt);
-    push_vert(flt);
-    push_vert(flt);
-    push_vert(frt);
-    push_vert(brt);
 
     // Front face
+    push_vert(brt);
+    push_vert(blt);
+    push_vert(flt);
     push_vert(flt);
     push_vert(frt);
+    push_vert(brt);
+
+    // Right face
+    push_vert(frt);
+    push_vert(flt);
     push_vert(frb);
     push_vert(flt);
     push_vert(flb);
     push_vert(frb);
 
-    // Back face
+    // Left face
     push_vert(blt);
     push_vert(brt);
     push_vert(brb);
-    push_vert(blt);
     push_vert(blb);
+    push_vert(blt);
     push_vert(brb);
 
     // Left face
     push_vert(flt);
     push_vert(blt);
     push_vert(blb);
-    push_vert(flt);
     push_vert(flb);
+    push_vert(flt);
     push_vert(blb);
 
     // Right face
-    push_vert(frt);
     push_vert(brt);
+    push_vert(frt);
     push_vert(brb);
     push_vert(frt);
     push_vert(frb);
@@ -261,11 +261,11 @@ void Rectangle::delete_vertices(){
 ///////////////////////////////// Sphere /////////////////////////////////
 
 Sphere::Sphere(){
-    r = 1;
-    n = 100;
-    // x = -5;
-    // y = -5;
-    // z = -10;
+    r = 0.5;
+    n = 10;
+    x = 0;
+    y = 0;
+    z = 0;
 }
 
 Sphere::~Sphere(){
@@ -281,40 +281,47 @@ void Sphere::push_vert(vert corner){
 }
 
 // Eqaution of sphere 
-// x = cos(u) * sin (v) * r
-// y = cos(v) * r
-// z = sin(u) * sin(v) * r
+// x = r * cos(u) * sin(v)
+// y = r * sin(u) * sin(v)
+// z = r * cos(v)
+// u ranges from 0 to 2pi
+// v ranges from 0 to pi
 vector<float> Sphere::points(int i, int j){
     vector <float> combined;
-        u = 2 * M_PI * (((float)i + 1) / n);
-		v = M_PI * (((float)j + 1) / n);
-        combined.push_back(cos(u) * sin(v) * r);
-        combined.push_back(cos(v) * r);
-        combined.push_back(sin(u) * sin(v) * r);
+        u = ((2 * M_PI / n) * i);
+        v = ((M_PI / n) * j);
+
+        tempX = r * cos(u) * sin(v);
+        tempY = r * sin(u) * sin(v);
+        tempZ = r * cos(v);
+        combined.push_back(tempX);
+        combined.push_back(tempY);
+        combined.push_back(tempZ);
         return combined;
 }
 
-void Sphere::sort_verts(vector<float> temp){
+void Sphere::sort_verts(vector<vector<float>> temp){
     vert bl, br, tl, tr;
-    bl.x = temp[0];
-    bl.y = temp[1];
-    bl.z = temp[2];
+    bl.x = x + temp[0][0];
+    bl.y = y + temp[0][1];
+    bl.z = z + temp[0][2];
 
-    br.x = temp[3];
-    br.y = temp[4];
-    br.z = temp[5];
+    br.x = x + temp[1][0];
+    br.y = y + temp[1][1];
+    br.z = z + temp[1][2];
+
     
-    tl.x = temp[6];
-    tl.y = temp[7];
-    tl.z = temp[8];
+    tl.x = x + temp[2][0];
+    tl.y = y + temp[2][1];
+    tl.z = z + temp[2][2];
 
-    tr.x = temp[9];
-    tr.y = temp[10];
-    tr.z = temp[11];
+    tr.x = x + temp[3][0];
+    tr.y = y + temp[3][1];
+    tr.z = z + temp[3][2];
 
     //Making the bottom left triangle of the rectangle
-    push_vert(bl);
     push_vert(br);
+    push_vert(bl);
     push_vert(tl);
 
     //Making the top right triangle
@@ -325,17 +332,18 @@ void Sphere::sort_verts(vector<float> temp){
 
 vector<float> Sphere::update(){
     vertices.clear();
-    vector<float> temp;
-    
+    vector<vector<float>> temp;
     for (int i = 0; i < n; i++){
-        for (int j = 0; j < n; j ++){
-            temp = points(i, j);
-            temp = points(i + 1, j);
-            temp = points(i, j + 1);
-            temp = points(i + 1, j + 1);
+        for (int j = 0; j < n; j++){ 
+            temp.push_back(points(i, j));
+            temp.push_back(points(i + 1, j));
+            temp.push_back(points(i, j + 1));
+            temp.push_back(points(i + 1, j + 1));
             sort_verts(temp);
+            temp.clear();
         }
     }
+
     return vertices;
 }
 
@@ -371,9 +379,9 @@ Pyramid::Pyramid(){
     l = 1;
     w = 1;
     h = 1;
-    // x = -5;
-    // y = -5;
-    // z = -10;
+    x = 0;
+    y = 0;
+    z = 0;
 }
 
 Pyramid::~Pyramid(){
@@ -393,29 +401,29 @@ vector<float> Pyramid::update(){
     vert bl, br, fl, fr, top;
     // creating vertices
     // Back left
-    bl.x = 0;
-    bl.y = 0;
-    bl.z = 0;
+    bl.x = x;
+    bl.y = y;
+    bl.z = z;
 
     // Back right
-    br.x = w;
-    br.y = 0;
-    br.z = 0;
+    br.x = x + w;
+    br.y = y;
+    br.z = z;
 
     // Front left
-    fl.x = 0;
-    fl.y = l;
-    fl.z = 0;
+    fl.x = x;
+    fl.y = y + l;
+    fl.z = z;
 
     // Front right
-    fr.x = w;
-    fr.y = l;
-    fr.z = 0;
+    fr.x = x + w;
+    fr.y = y + l;
+    fr.z = z;
 
     // Top point
-    top.x = w / 2;
-    top.y = l / 2;
-    top.z = h;  
+    top.x = (x + w) / 2;
+    top.y = (y + l) / 2;
+    top.z = z + h;  
 
     // Creating triangles  
     // Base

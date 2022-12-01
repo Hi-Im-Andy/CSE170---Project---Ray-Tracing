@@ -40,7 +40,7 @@ vector <float> vertices; // Vector used to store the vertices
 vector <float> color; // Vector used to store the color of the vertices
 struct vert {float x, y, z, w;}; // Struct used to store 4 variables of the point
 float length, width, height;
-// float x, y, z;
+float x, y, z;
 
 public:
     Rectangle(); // Constructor
@@ -60,14 +60,15 @@ class Sphere{
     vector <float> color;
     struct vert {float x, y, z, w;};
     float r, n, u, v;
-    // float x, y, z;
+    float tempX, tempY, tempZ;
+    float x, y, z;
 
 public:
     Sphere();
     ~Sphere();
     void push_vert(vert corner);
     vector <float> points(int i, int j);
-    void sort_verts(vector<float> temp);
+    void sort_verts(vector<vector<float>> temp);
     vector<float> update();
     vector<float> fill(float r, float g, float b);
     void print();
@@ -85,7 +86,7 @@ vector <float> vertices; // Vector used to store the vertices
 vector <float> color; // Vector used to store the color of the vertices
 struct vert {float x, y, z, w;}; // Struct used to store 4 variables of the point
 float l, w, h;
-// float x, y, z;
+float x, y, z;
 
 public:
     Pyramid(); // Constructor
