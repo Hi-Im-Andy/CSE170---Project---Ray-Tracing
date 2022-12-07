@@ -137,9 +137,9 @@ Rectangle::Rectangle(){
     length = 1;
     width = 1;
     height = 1;
-    x = 0;
-    y = 0;
-    z = 0;
+    x = -3;
+    y = -3;
+    z = -3;
 }
 
 Rectangle::~Rectangle(){
@@ -263,9 +263,9 @@ void Rectangle::delete_vertices(){
 Sphere::Sphere(){
     r = 0.5;
     n = 10;
-    x = 0;
-    y = 0;
-    z = 0;
+    x = -2;
+    y = -2;
+    z = -4;
 }
 
 Sphere::~Sphere(){

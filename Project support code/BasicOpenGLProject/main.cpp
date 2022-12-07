@@ -8,7 +8,6 @@
 #include "shaderprogram.h"
 #include "shapes.h"
 #include "shapes.cpp"
-// #include "torus.h"
 #include <vector>
 
 /*=================================================================================================
@@ -52,6 +51,15 @@ float perspRotationX = 0.0f, perspRotationY = 0.0f;
 
 GLuint axis_VAO;
 GLuint axis_VBO[2];
+
+GLuint rec_VAO;
+GLuint rec_VBO[2];
+
+GLuint sp_VAO;
+GLuint sp_VBO[2];
+
+GLuint py_VAO;
+GLuint py_VBO[2];
 
 
 /*=================================================================================================
@@ -100,13 +108,17 @@ void CreateShaders( void )
 	BUFFERS
 =================================================================================================*/
 
-Rectangle T;
+Background bg;
+Rectangle rec;
+Sphere sph;
+Pyramid pyr;
+
 void CreateAxisBuffers( void )
 {
 	// Making the vector that holds the vertices
 
-	std::vector<float> vec = T.update(); // Getting the vector from the torus class
-	std::vector<float> color = T.fill(1, 1, 1); // Color vector
+	std::vector<float> vec = bg.update(); // Getting the vector from the torus class
+	std::vector<float> color = bg.fill(1, 1, 1); // Color vector
 	std::cout << " updated " << std::endl;
 
 	glGenVertexArrays( 1, &axis_VAO );
@@ -115,18 +127,83 @@ void CreateAxisBuffers( void )
 	glGenBuffers( 2, &axis_VBO[0] );
 
 	glBindBuffer( GL_ARRAY_BUFFER, axis_VBO[0] );
-	// glBufferData( GL_ARRAY_BUFFER, sizeof( axis_vertices ), axis_vertices, GL_STATIC_DRAW ); // Commented this out to replace the triangle 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vec.size(), &vec[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
 	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
 	glEnableVertexAttribArray( 0 );
 
 	glBindBuffer( GL_ARRAY_BUFFER, axis_VBO[1] );
-	// glBufferData( GL_ARRAY_BUFFER, sizeof( axis_colors ), axis_colors, GL_STATIC_DRAW );
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color.size(), &color[0], GL_STATIC_DRAW);
 	glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
 	glEnableVertexAttribArray( 1 );
 
 	glBindVertexArray( 0 );
+
+	
+	std::vector<float> vec_rec = rec.update();
+	std::vector<float> color_rec = rec.fill(1, 1, 1); // Color vector
+	std::cout << " updated " << std::endl;
+
+
+	glGenVertexArrays( 1, &rec_VAO );
+	glBindVertexArray( rec_VAO );
+
+	glGenBuffers( 2, &rec_VBO[0] );
+
+	glBindBuffer( GL_ARRAY_BUFFER, rec_VBO[0] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vec_rec.size(), &vec_rec[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
+	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 0 );
+
+	glBindBuffer( GL_ARRAY_BUFFER, rec_VBO[1] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color.size(), &color_rec[0], GL_STATIC_DRAW);
+	glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 1 );
+
+	glBindVertexArray( 0 );
+
+
+	std::vector<float> vec_sp = sph.update();
+	std::vector<float> color_sp = sph.fill(1, 1, 1); // Color vector
+	std::cout << " updated " << std::endl;
+
+	glGenVertexArrays( 1, &sp_VAO );
+	glBindVertexArray( sp_VAO );
+
+	glGenBuffers( 2, &sp_VBO[0] );
+
+	glBindBuffer( GL_ARRAY_BUFFER, sp_VBO[0] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vec_sp.size(), &vec_sp[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
+	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 0 );
+
+	glBindBuffer( GL_ARRAY_BUFFER, sp_VBO[1] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color_sp.size(), &color_sp[0], GL_STATIC_DRAW);
+	glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 1 );
+
+	glBindVertexArray( 0 );
+
+	std::vector<float> vec_py = pyr.update();
+	std::vector<float> color_py = pyr.fill(1, 1, 1); // Color vector
+	std::cout << " updated " << std::endl;
+
+	glGenVertexArrays( 1, &py_VAO );
+	glBindVertexArray( py_VAO );
+
+	glGenBuffers( 2, &py_VBO[0] );
+
+	glBindBuffer( GL_ARRAY_BUFFER, py_VBO[0] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vec_py.size(), &vec_py[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
+	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 0 );
+
+	glBindBuffer( GL_ARRAY_BUFFER, py_VBO[1] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color_py.size(), &color_py[0], GL_STATIC_DRAW);
+	glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 1 );
+
+	glBindVertexArray( 0 );
+
 }
 
 
@@ -174,41 +251,6 @@ void keyboard_func( unsigned char key, int x, int y )
 		// case 'w': // Increment r radius (by a small value)
 		// {
 		// 	T.change_r(T.get_r() + 0.25); // Gets the current r and adds 0.25 to it then passes its new value
-		// 	CreateAxisBuffers();
-		// 	break;
-		// }
-		
-		// case 's': // Decrement r radius (by a small value)
-		// {
-		// 	T.change_r(T.get_r() - 0.25);
-		// 	CreateAxisBuffers();
-		// 	break;
-		// }
-		
-		// case 'q': // Increment number of triangles
-		// {
-		// 	T.change_n(T.get_n() + 10);
-		// 	CreateAxisBuffers();
-		// 	break;
-		// }
-
-		// case 'a': // Decrement number of triangles 
-		// {
-		// 	T.change_n(T.get_n() - 10);
-		// 	CreateAxisBuffers();
-		// 	break;
-		// }
-		
-		// case 'e': // Increment the R radius (by a small value) 
-		// {
-		// 	T.change_R(T.get_R() + 0.25);
-		// 	CreateAxisBuffers();
-		// 	break;
-		// }
-		
-		// case 'd': // Decrement the R radius (by a small value) 
-		// {
-		// 	T.change_R(T.get_R() - 0.25);
 		// 	CreateAxisBuffers();
 		// 	break;
 		// }
@@ -302,7 +344,10 @@ void active_motion_func( int x, int y )
 =================================================================================================*/
 void display_func( void )
 {
-	std::vector<float> vec = T.update(); // Getting the vector from the torus class
+	std::vector<float> vec = bg.update();
+	std::vector<float> rc = rec.update();
+	std::vector<float> sp = sph.update();
+	std::vector<float> py = pyr.update();
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
 	CreateTransformationMatrices();
@@ -317,6 +362,15 @@ void display_func( void )
 
 	glBindVertexArray( axis_VAO );
 	glDrawArrays( GL_TRIANGLES, 0, vec.size ()); //Similar result with GL_TRIANGLE_STRIP and GL_TRIANGLES
+
+	glBindVertexArray( rec_VAO );
+	glDrawArrays( GL_TRIANGLES, 0, rc.size ());
+
+	glBindVertexArray( sp_VAO );
+	glDrawArrays( GL_TRIANGLES, 0, sp.size ()); 
+	
+	glBindVertexArray( py_VAO );
+	glDrawArrays( GL_TRIANGLES, 0, py.size ());
 
 	glBindVertexArray( 0 );
 
