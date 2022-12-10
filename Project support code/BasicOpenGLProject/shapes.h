@@ -14,6 +14,8 @@ class Background{
     vector <float> floor_color;
     vector <float> walls; 
     vector <float> wall_color;
+    GLuint axis_VAO;
+    GLuint axis_VBO[2];
 
 public:
     Background();
@@ -24,8 +26,10 @@ public:
     void fill_walls();
     void create_floor();
     void fill_floor();
-    vector<float> update();
+    void update();
     vector<float> fill(float r, float g, float b);
+    void buffer();
+    void display();
     
 };
 
@@ -41,15 +45,19 @@ vector <float> color; // Vector used to store the color of the vertices
 struct vert {float x, y, z, w;}; // Struct used to store 4 variables of the point
 float length, width, height;
 float x, y, z;
+GLuint rec_VAO;
+GLuint rec_VBO[2];
 
 public:
     Rectangle(); // Constructor
     ~Rectangle(); // Deconstructor
 
     void push_vert (vert corner);
-    vector<float> update();
+    void update();
     vector<float> fill(float r, float g, float b);
     void print();
+    void buffer();
+    void display();
     void delete_vertices();
 };
 
@@ -62,6 +70,8 @@ class Sphere{
     float r, n, u, v;
     float tempX, tempY, tempZ;
     float x, y, z;
+    GLuint sp_VAO;
+    GLuint sp_VBO[2];
 
 public:
     Sphere();
@@ -69,9 +79,11 @@ public:
     void push_vert(vert corner);
     vector <float> points(int i, int j);
     void sort_verts(vector<vector<float>> temp);
-    vector<float> update();
+    void update();
     vector<float> fill(float r, float g, float b);
     void print();
+    void buffer();
+    void display();
     void delete_vertices();
 };
 
@@ -95,7 +107,7 @@ public:
     ~Pyramid(); // Deconstructor
 
     void push_vert (vert corner);
-    vector<float> update();
+    void update();
     vector<float> fill(float r, float g, float b);
     void print();
     void buffer();

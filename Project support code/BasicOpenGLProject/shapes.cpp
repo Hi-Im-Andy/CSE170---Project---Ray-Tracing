@@ -108,7 +108,7 @@ void Background::fill_floor(){
     }
 }
 
-vector<float> Background::update(){
+void  Background::update(){
     walls.clear();
     floor.clear();
     create_floor();
@@ -116,7 +116,6 @@ vector<float> Background::update(){
     for (auto i : floor){
         walls.push_back(i);
     }
-    return walls;
 }
 
 vector<float> Background::fill(float r, float g, float b){
@@ -126,6 +125,33 @@ vector<float> Background::fill(float r, float g, float b){
         wall_color.push_back(i);
     }
     return wall_color;
+}
+
+void Background::buffer(){
+    update(); // Getting the vector from the torus class
+	std::vector<float> color = fill(1, 1, 1); // Color vector
+
+	glGenVertexArrays( 1, &axis_VAO );
+	glBindVertexArray( axis_VAO );
+
+	glGenBuffers( 2, &axis_VBO[0] );
+
+	glBindBuffer( GL_ARRAY_BUFFER, axis_VBO[0] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * walls.size(), &walls[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
+	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 0 );
+
+	glBindBuffer( GL_ARRAY_BUFFER, axis_VBO[1] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color.size(), &color[0], GL_STATIC_DRAW);
+	glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 1 );
+
+	glBindVertexArray( 0 );
+}
+
+void Background::display(){
+	glBindVertexArray( axis_VAO );
+	glDrawArrays( GL_TRIANGLES, 0, walls.size ()); //Similar result with GL_TRIANGLE_STRIP and GL_TRIANGLES
 }
 
 
@@ -154,7 +180,7 @@ void Rectangle::push_vert(vert corner){
     vertices.push_back(1);
 }
 
-vector<float> Rectangle::update(){
+void Rectangle::update(){
     vertices.clear();
     vert blb, brb, flb, frb, blt, brt, flt, frt;
     // Back left bottom
@@ -234,7 +260,6 @@ vector<float> Rectangle::update(){
     push_vert(frt);
     push_vert(frb);
     push_vert(brb);
-    return vertices;
 }
 
 vector<float> Rectangle::fill(float r, float g, float b){ // Populates the color vector with desired color
@@ -252,6 +277,33 @@ void Rectangle::print(){
     for (auto i : vertices){
         cout << i << ", ";
     }
+}
+
+void Rectangle::buffer(){
+    update();
+	vector<float> color_rec = fill(1, 1, 1); // Color vector
+
+	glGenVertexArrays( 1, &rec_VAO );
+	glBindVertexArray( rec_VAO );
+
+	glGenBuffers( 2, &rec_VBO[0] );
+
+	glBindBuffer( GL_ARRAY_BUFFER, rec_VBO[0] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), &vertices[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
+	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 0 );
+
+	glBindBuffer( GL_ARRAY_BUFFER, rec_VBO[1] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color.size(), &color_rec[0], GL_STATIC_DRAW);
+	glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 1 );
+
+	glBindVertexArray( 0 );
+}
+
+void Rectangle::display(){
+    glBindVertexArray( rec_VAO );
+	glDrawArrays( GL_TRIANGLES, 0, vertices.size());
 }
 
 void Rectangle::delete_vertices(){
@@ -330,7 +382,7 @@ void Sphere::sort_verts(vector<vector<float>> temp){
     push_vert(br);
 }
 
-vector<float> Sphere::update(){
+void Sphere::update(){
     vertices.clear();
     vector<vector<float>> temp;
     for (int i = 0; i < n; i++){
@@ -343,8 +395,6 @@ vector<float> Sphere::update(){
             temp.clear();
         }
     }
-
-    return vertices;
 }
 
 vector<float> Sphere::fill(float r, float g, float b){
@@ -362,6 +412,33 @@ void Sphere::print(){
     for (auto i : vertices){
         cout << i << ", ";
     }
+}
+
+void Sphere::buffer(){
+	update();
+	vector<float> color_sp = fill(1, 1, 1); // Color vector
+
+	glGenVertexArrays( 1, &sp_VAO );
+	glBindVertexArray( sp_VAO );
+
+	glGenBuffers( 2, &sp_VBO[0] );
+
+	glBindBuffer( GL_ARRAY_BUFFER, sp_VBO[0] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), &vertices[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
+	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 0 );
+
+	glBindBuffer( GL_ARRAY_BUFFER, sp_VBO[1] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color_sp.size(), &color_sp[0], GL_STATIC_DRAW);
+	glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 1 );
+
+	glBindVertexArray( 0 );
+}
+
+void Sphere::display(){
+	glBindVertexArray( sp_VAO );
+	glDrawArrays( GL_TRIANGLES, 0, vertices.size ()); 
 }
 
 void Sphere::delete_vertices(){
@@ -396,7 +473,7 @@ void Pyramid::push_vert(vert corner){
     vertices.push_back(1);
 }
 
-vector<float> Pyramid::update(){
+void Pyramid::update(){
     vertices.clear();
     vert bl, br, fl, fr, top;
     // creating vertices
@@ -453,9 +530,8 @@ vector<float> Pyramid::update(){
     push_vert(bl);
     push_vert(top);
     push_vert(fl);
-
-    return vertices;
 }
+
 
 vector<float> Pyramid::fill(float r, float g, float b){ // Populates the color vector with desired color
     color.clear();
@@ -475,7 +551,7 @@ void Pyramid::print(){
 }
 
 void Pyramid::buffer(){
-    vector<float> vec_py = update();
+    update();
 	vector<float> color_py = fill(1, 1, 1); // Color vector
 	cout << " updated " << std::endl;
 
