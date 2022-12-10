@@ -19,6 +19,7 @@ class Background{
 
 public:
     Background();
+    Background(float w1, float l1, float h1, float x1, float y1, float z1);
     ~Background();
     void push_vert_walls (vert corner);
     void push_vert_floor (vert corner);
@@ -50,6 +51,7 @@ GLuint rec_VBO[2];
 
 public:
     Rectangle(); // Constructor
+    Rectangle(float w1, float l1, float h1, float x1, float y1, float z1);
     ~Rectangle(); // Deconstructor
 
     void push_vert (vert corner);
@@ -75,6 +77,7 @@ class Sphere{
 
 public:
     Sphere();
+    Sphere(float r1, float n1, float x1, float y1, float z1);
     ~Sphere();
     void push_vert(vert corner);
     vector <float> points(int i, int j);
@@ -104,6 +107,8 @@ GLuint py_VBO[2];
 
 public:
     Pyramid(); // Constructor
+    Pyramid(float w1, float l1, float h1, float x1, float y1, float z1); // Constructor
+
     ~Pyramid(); // Deconstructor
 
     void push_vert (vert corner);
