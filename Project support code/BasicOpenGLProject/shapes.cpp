@@ -4,12 +4,21 @@
 
 ///////////////////////////////// Background /////////////////////////////////
 Background::Background(){
-    w = 10;
-    l = 10;
-    h = 10;
-    x = -5;
-    y = -5;
-    z = -10;
+    w = 100;
+    l = 100;
+    h = 100;
+    x = -50;
+    y = -10;
+    z = -100;
+}
+
+Background::Background(float w1, float l1, float h1, float x1, float y1, float z1){
+    w = w1;
+    l = l1;
+    h = h1;
+    x = x1;
+    y = y1;
+    z = z1;
 }
 
 Background::~Background(){
@@ -113,17 +122,17 @@ void  Background::update(){
     floor.clear();
     create_floor();
     create_walls();
-    for (auto i : floor){
-        walls.push_back(i);
-    }
+    // for (auto i : floor){
+    //     walls.push_back(i);
+    // }
 }
 
 vector<float> Background::fill(float r, float g, float b){
     fill_walls();
     fill_floor();
-    for (auto i : floor_color){
-        wall_color.push_back(i);
-    }
+    // for (auto i : floor_color){
+    //     wall_color.push_back(i);
+    // }
     return wall_color;
 }
 
@@ -168,6 +177,15 @@ Rectangle::Rectangle(){
     z = -3;
 }
 
+Rectangle::Rectangle(float w1, float l1, float h1, float x1, float y1, float z1){
+    length = l1;
+    width = w1;
+    height = h1;
+    x = x1;
+    y = y1;
+    z = z1;
+}
+
 Rectangle::~Rectangle(){
     vertices.clear();
     color.clear();
@@ -189,7 +207,7 @@ void Rectangle::update(){
     blb.z = z;
     // back right bottom
     brb.x = x;
-    brb.y = y + width;
+    brb.y = y + length;
     brb.z = z;
     // front left bottom
     flb.x = x + width;
@@ -313,11 +331,19 @@ void Rectangle::delete_vertices(){
 ///////////////////////////////// Sphere /////////////////////////////////
 
 Sphere::Sphere(){
-    r = 0.5;
-    n = 10;
+    r = 1;
+    n = 20;
     x = -2;
     y = -2;
     z = -4;
+}
+
+Sphere::Sphere(float r1, float n1, float x1, float y1, float z1){
+    r = r1;
+    n = n1;
+    x = x1;
+    y = y1;
+    z = z1;
 }
 
 Sphere::~Sphere(){
@@ -451,7 +477,6 @@ void Sphere::delete_vertices(){
 
 
 ///////////////////////////////// Pyramid /////////////////////////////////
-
 Pyramid::Pyramid(){
     l = 1;
     w = 1;
@@ -459,6 +484,15 @@ Pyramid::Pyramid(){
     x = 0;
     y = 0;
     z = 0;
+}
+
+Pyramid::Pyramid(float w1, float l1, float h1, float x1, float y1, float z1){
+    w = w1;
+    l = l1;
+    h = h1;
+    x = x1;
+    y = y1;
+    z = z1;
 }
 
 Pyramid::~Pyramid(){

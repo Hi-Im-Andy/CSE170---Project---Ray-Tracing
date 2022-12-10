@@ -48,19 +48,7 @@ float perspRotationX = 0.0f, perspRotationY = 0.0f;
 /*=================================================================================================
 	OBJECTS
 =================================================================================================*/
-
-GLuint axis_VAO;
-GLuint axis_VBO[2];
-
-// GLuint rec_VAO;
-// GLuint rec_VBO[2];
-
-// GLuint sp_VAO;
-// GLuint sp_VBO[2];
-
-// GLuint py_VAO;
-// GLuint py_VBO[2];
-
+// Objects included in the classes
 
 /*=================================================================================================
 	HELPER FUNCTIONS
@@ -113,6 +101,35 @@ Rectangle rec;
 Sphere sph;
 Pyramid pyr;
 
+// Row 1
+Rectangle r1b1(15, 40, 15, -50, -10, -100);
+Rectangle r1b2(20, 20, 7.5, -35, -10, -100);
+Rectangle r1b3(10, 50, 10, -15, -10, -100);
+Rectangle r1b4(10, 40, 10, -15, -10, -90);
+Rectangle r1b5(10, 30, 10, -5, -10, -100);
+Rectangle r1b6(10, 20, 10, -5, -10, -90);
+Rectangle r1b7(15, 40, 15, 35, -10, -100);
+Rectangle r1b8(20, 20, 7.5, 10, -10, -100);
+
+// Row 2
+Rectangle r2b1(15, 25, 15, -50, -10, -65);
+Rectangle r2b2(10, 40, 10, -47.5, -10, -62.5);
+Rectangle r2b3(5, 55, 5, -45, -10, -60);
+
+Pyramid r2b4();
+
+Rectangle r2b5(15, 25, 15, 35, -10, -65);
+Sphere r2b6(7.5, 26 , 42.5, 15, -57.5);
+
+// Row 3
+Sphere r3b1(10, 30, -40, -10, -10);
+Rectangle r3b2(10, 10, 10, -45, -15, -20);
+
+Rectangle r3b3(10, 20, 20, -20, -10, -20);
+Rectangle r3b4(10, 20, 20, 10, -10, -20);
+
+Rectangle r3b5(20, 60, 20, 30, -10, -20);
+
 /*=================================================================================================
 	BUFFERS
 =================================================================================================*/
@@ -123,6 +140,30 @@ void CreateAxisBuffers( void )
 	rec.buffer();
 	sph.buffer();
 	pyr.buffer();
+	r1b1.buffer();
+	r1b2.buffer();
+	r1b3.buffer();
+	r1b4.buffer();
+	r1b5.buffer();
+	r1b6.buffer();
+	r1b7.buffer();
+	r1b8.buffer();
+
+
+	// Row 2
+	r2b1.buffer();
+	r2b2.buffer();
+	r2b3.buffer();
+
+	r2b5.buffer();
+	r2b6.buffer();
+
+	// Row 3
+	r3b1.buffer();
+	r3b2.buffer();
+	r3b3.buffer();
+	r3b4.buffer();
+	r3b5.buffer();
 }
 
 /*=================================================================================================
@@ -279,6 +320,30 @@ void display_func( void )
 	rec.display();
 	sph.display();
 	pyr.display();
+	r1b1.display();
+	r1b2.display();
+	r1b3.display();
+	r1b4.display();
+	r1b5.display();
+	r1b6.display();
+	r1b7.display();
+	r1b8.display();
+
+	// Row 2
+	r2b1.display();
+	r2b2.display();
+	r2b3.display();
+
+	r2b5.display();
+	r2b6.display();
+
+	// Row 3
+	r3b1.display();
+	r3b2.display();
+	r3b3.display();
+	r3b4.display();
+	r3b5.display();
+
 
 	glBindVertexArray( 0 );
 
