@@ -58,8 +58,8 @@ GLuint rec_VBO[2];
 GLuint sp_VAO;
 GLuint sp_VBO[2];
 
-GLuint py_VAO;
-GLuint py_VBO[2];
+// GLuint py_VAO;
+// GLuint py_VBO[2];
 
 
 /*=================================================================================================
@@ -183,26 +183,28 @@ void CreateAxisBuffers( void )
 
 	glBindVertexArray( 0 );
 
-	std::vector<float> vec_py = pyr.update();
-	std::vector<float> color_py = pyr.fill(1, 1, 1); // Color vector
-	std::cout << " updated " << std::endl;
 
-	glGenVertexArrays( 1, &py_VAO );
-	glBindVertexArray( py_VAO );
+	pyr.buffer();
+	// 	std::vector<float> vec_py = pyr.update();
+	// std::vector<float> color_py = pyr.fill(1, 1, 1); // Color vector
+	// std::cout << " updated " << std::endl;
 
-	glGenBuffers( 2, &py_VBO[0] );
+	// glGenVertexArrays( 1, &py_VAO );
+	// glBindVertexArray( py_VAO );
 
-	glBindBuffer( GL_ARRAY_BUFFER, py_VBO[0] );
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vec_py.size(), &vec_py[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
-	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
-	glEnableVertexAttribArray( 0 );
+	// glGenBuffers( 2, &py_VBO[0] );
 
-	glBindBuffer( GL_ARRAY_BUFFER, py_VBO[1] );
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color_py.size(), &color_py[0], GL_STATIC_DRAW);
-	glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
-	glEnableVertexAttribArray( 1 );
+	// glBindBuffer( GL_ARRAY_BUFFER, py_VBO[0] );
+	// glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vec_py.size(), &vec_py[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
+	// glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	// glEnableVertexAttribArray( 0 );
 
-	glBindVertexArray( 0 );
+	// glBindBuffer( GL_ARRAY_BUFFER, py_VBO[1] );
+	// glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color_py.size(), &color_py[0], GL_STATIC_DRAW);
+	// glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	// glEnableVertexAttribArray( 1 );
+
+	// glBindVertexArray( 0 );
 
 }
 
@@ -369,8 +371,8 @@ void display_func( void )
 	glBindVertexArray( sp_VAO );
 	glDrawArrays( GL_TRIANGLES, 0, sp.size ()); 
 	
-	glBindVertexArray( py_VAO );
-	glDrawArrays( GL_TRIANGLES, 0, py.size ());
+
+	pyr.display();
 
 	glBindVertexArray( 0 );
 

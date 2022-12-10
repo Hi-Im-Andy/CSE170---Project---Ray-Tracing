@@ -474,6 +474,34 @@ void Pyramid::print(){
     }
 }
 
+void Pyramid::buffer(){
+    vector<float> vec_py = update();
+	vector<float> color_py = fill(1, 1, 1); // Color vector
+	cout << " updated " << std::endl;
+
+	glGenVertexArrays( 1, &py_VAO );
+	glBindVertexArray( py_VAO );
+
+	glGenBuffers( 2, &py_VBO[0] );
+
+	glBindBuffer( GL_ARRAY_BUFFER, py_VBO[0] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), &vertices[0], GL_STATIC_DRAW); // Changed to match the vector input of the float as well as the address of the vector
+	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 0 );
+
+	glBindBuffer( GL_ARRAY_BUFFER, py_VBO[1] );
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * color_py.size(), &color_py[0], GL_STATIC_DRAW);
+	glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( float ), (void*)0 );
+	glEnableVertexAttribArray( 1 );
+
+	glBindVertexArray( 0 );
+}
+
+void Pyramid::display(){
+    glBindVertexArray( py_VAO );
+	glDrawArrays( GL_TRIANGLES, 0, vertices.size ());
+}
+
 void Pyramid::delete_vertices(){
     vertices.clear();
 }

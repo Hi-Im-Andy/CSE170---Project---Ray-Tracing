@@ -87,6 +87,8 @@ vector <float> color; // Vector used to store the color of the vertices
 struct vert {float x, y, z, w;}; // Struct used to store 4 variables of the point
 float l, w, h;
 float x, y, z;
+GLuint py_VAO;
+GLuint py_VBO[2];
 
 public:
     Pyramid(); // Constructor
@@ -96,5 +98,7 @@ public:
     vector<float> update();
     vector<float> fill(float r, float g, float b);
     void print();
+    void buffer();
+    void display();
     void delete_vertices();
 };
