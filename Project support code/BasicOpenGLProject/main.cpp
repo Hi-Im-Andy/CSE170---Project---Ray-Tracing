@@ -102,13 +102,16 @@ Background bg;
 // Pyramid pyr;
 
 // Train
-Sphere end1(2, 10, 40, 12, 11);
-Sphere end2(2, 10, 10, 12, 11);
-Rectangle b1(6, 4, 4, 10, 10, 9);
-Rectangle b2(6, 4, 4, 18, 10, 9);
-Rectangle b3(6, 4, 4, 26, 10, 9);
-Rectangle b4(6, 4, 4, 34, 10, 9);
-Rectangle lower(30, 2, 2, 10, 10, 10);
+int t_x = 50;
+int t_y = -10;
+int t_z = -75;
+Sphere end1(2, 10, t_x+30, t_y+2, t_z+1);
+Sphere end2(2, 10, t_x, t_y+2, t_z+1);
+Rectangle b1(6, 4, 4, t_x, t_y, t_z-1);
+Rectangle b2(6, 4, 4, t_x+8, t_y, t_z-1);
+Rectangle b3(6, 4, 4, t_x+16, t_y, t_z-1);
+Rectangle b4(6, 4, 4, t_x+24, t_y, t_z-1);
+Rectangle lower(30, 2, 2, t_x, t_y, t_z);
 
 // Row 1
 Rectangle r1b1(15, 40, 15, -50, -10, -100);
@@ -136,6 +139,36 @@ Rectangle r3b2(10, 10, 10, -45, -15, -20);
 Rectangle r3b3(10, 20, 20, -20, -10, -20);
 Rectangle r3b4(10, 20, 20, 10, -10, -20);
 Rectangle r3b5(20, 60, 20, 30, -10, -20);
+
+/*=================================================================================================
+	Moving
+=================================================================================================*/
+
+void move_train(float x, float y, float z){
+	end1.change_x(x);
+	end2.change_x(x);
+	b1.change_x(x);
+	b2.change_x(x);
+	b3.change_x(x);
+	b4.change_x(x);
+	lower.change_x(x);
+
+	end1.change_y(y);
+	end2.change_y(y);
+	b1.change_y(y);
+	b2.change_y(y);
+	b3.change_y(y);
+	b4.change_y(y);
+	lower.change_y(y);
+
+	end1.change_z(z);
+	end2.change_z(z);
+	b1.change_z(z);
+	b2.change_z(z);
+	b3.change_z(z);
+	b4.change_z(z);
+	lower.change_z(z);
+}
 
 /*=================================================================================================
 	BUFFERS
@@ -224,12 +257,14 @@ void keyboard_func( unsigned char key, int x, int y )
 			break;
 		}
 
-		// case 'w': // Increment r radius (by a small value)
-		// {
-		// 	T.change_r(T.get_r() + 0.25); // Gets the current r and adds 0.25 to it then passes its new value
-		// 	CreateAxisBuffers();
-		// 	break;
-		// }
+		case 'w': // Increment r radius (by a small value)
+		{
+			for(int i = 0; i < 10; i++){
+				move_train(-i, 0, 0);
+				CreateAxisBuffers();
+			}
+			break;
+		}
 
 		// Exit on escape key press
 		case '\x1B':
@@ -313,14 +348,6 @@ void active_motion_func( int x, int y )
 
 	LastMousePosX = x;
 	LastMousePosY = y;
-}
-
-/*=================================================================================================
-	Moving
-=================================================================================================*/
-
-void move_train(){
-
 }
 
 

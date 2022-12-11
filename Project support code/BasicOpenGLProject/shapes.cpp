@@ -325,17 +325,17 @@ void Rectangle::display(){
 }
 
 void Rectangle::change_x(float new_x){
-    x = new_x;
+    x+=new_x;
     update();
 }
 
 void Rectangle::change_y(float new_y){
-    y = new_y;
+    y += new_y;
     update();
 }
 
 void Rectangle::change_z(float new_z){
-    z = new_z;
+    z += new_z;
     update();
 }
 
@@ -483,17 +483,17 @@ void Sphere::display(){
 }
 
 void Sphere::change_x(float new_x){
-    x = new_x;
+    x += new_x;
     update();
 }
 
 void Sphere::change_y(float new_y){
-    y = new_y;
+    y += new_y;
     update();
 }
 
 void Sphere::change_z(float new_z){
-    z = new_z;
+    z += new_z;
     update();
 }
 
