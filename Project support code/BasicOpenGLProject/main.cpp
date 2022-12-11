@@ -95,11 +95,20 @@ void CreateShaders( void )
 /*=================================================================================================
 	Classes
 =================================================================================================*/
-
+// Test
 Background bg;
-Rectangle rec;
-Sphere sph;
-Pyramid pyr;
+// Rectangle rec;
+// Sphere sph;
+// Pyramid pyr;
+
+// Train
+Sphere end1(2, 10, 40, 12, 11);
+Sphere end2(2, 10, 10, 12, 11);
+Rectangle b1(6, 4, 4, 10, 10, 9);
+Rectangle b2(6, 4, 4, 18, 10, 9);
+Rectangle b3(6, 4, 4, 26, 10, 9);
+Rectangle b4(6, 4, 4, 34, 10, 9);
+Rectangle lower(30, 2, 2, 10, 10, 10);
 
 // Row 1
 Rectangle r1b1(15, 40, 15, -50, -10, -100);
@@ -119,15 +128,13 @@ Rectangle r2b3(5, 55, 5, -45, -10, -60);
 Pyramid r2b4();
 
 Rectangle r2b5(15, 25, 15, 35, -10, -65);
-Sphere r2b6(7.5, 26 , 42.5, 15, -57.5);
+Sphere r2b6(7.5, 30 , 42.5, 15, -57.5);
 
 // Row 3
 Sphere r3b1(10, 30, -40, -10, -10);
 Rectangle r3b2(10, 10, 10, -45, -15, -20);
-
 Rectangle r3b3(10, 20, 20, -20, -10, -20);
 Rectangle r3b4(10, 20, 20, 10, -10, -20);
-
 Rectangle r3b5(20, 60, 20, 30, -10, -20);
 
 /*=================================================================================================
@@ -136,10 +143,13 @@ Rectangle r3b5(20, 60, 20, 30, -10, -20);
 
 void CreateAxisBuffers( void )
 {
+	// test
 	bg.buffer();
-	rec.buffer();
-	sph.buffer();
-	pyr.buffer();
+	// rec.buffer();
+	// sph.buffer();
+	// pyr.buffer();
+
+	// Row 1
 	r1b1.buffer();
 	r1b2.buffer();
 	r1b3.buffer();
@@ -149,12 +159,10 @@ void CreateAxisBuffers( void )
 	r1b7.buffer();
 	r1b8.buffer();
 
-
 	// Row 2
 	r2b1.buffer();
 	r2b2.buffer();
 	r2b3.buffer();
-
 	r2b5.buffer();
 	r2b6.buffer();
 
@@ -164,6 +172,15 @@ void CreateAxisBuffers( void )
 	r3b3.buffer();
 	r3b4.buffer();
 	r3b5.buffer();
+
+	// Train
+	lower.buffer();
+	end1.buffer();
+	end2.buffer();
+	b1.buffer();
+	b2.buffer();
+	b3.buffer();
+	b4.buffer();
 }
 
 /*=================================================================================================
@@ -299,6 +316,15 @@ void active_motion_func( int x, int y )
 }
 
 /*=================================================================================================
+	Moving
+=================================================================================================*/
+
+void move_train(){
+
+}
+
+
+/*=================================================================================================
 	RENDERING
 =================================================================================================*/
 void display_func( void )
@@ -316,10 +342,12 @@ void display_func( void )
 		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
 	// Display the shapes
+	// Test
 	bg.display();
-	rec.display();
-	sph.display();
-	pyr.display();
+	// rec.display();
+	// sph.display();
+	// pyr.display();
+
 	r1b1.display();
 	r1b2.display();
 	r1b3.display();
@@ -344,6 +372,13 @@ void display_func( void )
 	r3b4.display();
 	r3b5.display();
 
+	lower.display();
+	end1.display();
+	end2.display();
+	b1.display();
+	b2.display();
+	b3.display();
+	b4.display();
 
 	glBindVertexArray( 0 );
 

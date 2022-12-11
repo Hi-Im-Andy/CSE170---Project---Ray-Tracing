@@ -324,6 +324,21 @@ void Rectangle::display(){
 	glDrawArrays( GL_TRIANGLES, 0, vertices.size());
 }
 
+void Rectangle::change_x(float new_x){
+    x = new_x;
+    update();
+}
+
+void Rectangle::change_y(float new_y){
+    y = new_y;
+    update();
+}
+
+void Rectangle::change_z(float new_z){
+    z = new_z;
+    update();
+}
+
 void Rectangle::delete_vertices(){
     vertices.clear();
 }
@@ -467,13 +482,24 @@ void Sphere::display(){
 	glDrawArrays( GL_TRIANGLES, 0, vertices.size ()); 
 }
 
+void Sphere::change_x(float new_x){
+    x = new_x;
+    update();
+}
+
+void Sphere::change_y(float new_y){
+    y = new_y;
+    update();
+}
+
+void Sphere::change_z(float new_z){
+    z = new_z;
+    update();
+}
+
 void Sphere::delete_vertices(){
     vertices.clear();
 };
-
-
-///////////////////////////////// Cone /////////////////////////////////
-
 
 
 ///////////////////////////////// Pyramid /////////////////////////////////
@@ -614,4 +640,101 @@ void Pyramid::display(){
 
 void Pyramid::delete_vertices(){
     vertices.clear();
+}
+
+///////////////////////////////// Choo-choo /////////////////////////////////
+
+Train::Train(){
+    x = 0;
+    y = 0;
+    z = 0;
+    w = 4;
+    l = 6;
+    h = 4;
+    r = 2;
+}
+
+Train::Train(float starting_x, float starting_y, float starting_z){
+    x = starting_x;
+    y = starting_y;
+    z = starting_z;
+    w = 4;
+    l = 6;
+    h = 4;
+    r = 2;
+    Sphere end1(10, 30, 20 ,15, -10);
+    Sphere end2;
+
+    Rectangle b1(4, 6, 4, 10, 10, 10);
+    Rectangle b2;
+    Rectangle b3;
+    Rectangle b4;
+    Rectangle lower;
+}
+
+Train::~Train(){    
+}
+
+void Train::make(){
+    
+}
+
+void Train::buffer(){
+    end1.buffer();
+    b1.buffer();
+    b2.buffer();
+    b3.buffer();
+    b4.buffer();
+    lower.buffer();
+}
+
+void Train::display(){
+    end1.display();
+    b1.display();
+    b2.display();
+    b3.display();
+    b4.display();
+    lower.display();
+}
+
+void Train::change_x(float new_x){
+    if(new_x > 0){
+        end1.change_x(1);
+        end2.change_x(1);
+        b1.change_x(1);
+        b2.change_x(1);
+        b3.change_x(1);
+        b4.change_x(1);
+        lower.change_x(1);
+    }
+    if(new_x < 0){
+        end1.change_x(1);
+        end2.change_x(1);
+        b1.change_x(1);
+        b2.change_x(1);
+        b3.change_x(1);
+        b4.change_x(1);
+        lower.change_x(1);
+    }
+    
+}
+
+void Train::change_y(float new_y){
+    end1.change_y(1);
+    end2.change_y(1);
+    b1.change_y(1);
+    b2.change_y(1);
+    b3.change_y(1);
+    b4.change_y(1);
+    lower.change_y(1);
+}
+
+void Train::change_z(float new_z){
+    end1.change_z(1);
+    end2.change_z(1);
+    b1.change_z(1);
+    b2.change_z(1);
+    b3.change_z(1);
+    b4.change_z(1);
+    lower.change_z(1);
 }

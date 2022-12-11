@@ -36,7 +36,7 @@ public:
 
 ///////////////////////////////// Shapes /////////////////////////////////
 // Making the subclasses for each shape
-// Shapes - Rectangle, sphere, cone, pyramid
+// Shapes - Rectangle, sphere,  pyramid, train
 
 ///////////////////////////////// Rectangle Class /////////////////////////////////
 
@@ -60,11 +60,13 @@ public:
     void print();
     void buffer();
     void display();
+    void change_x(float new_x);
+    void change_y(float new_y);
+    void change_z(float new_z);
     void delete_vertices();
 };
 
 ///////////////////////////////// Sphere /////////////////////////////////
-
 class Sphere{
     vector <float> vertices;
     vector <float> color;
@@ -87,15 +89,14 @@ public:
     void print();
     void buffer();
     void display();
+    void change_x(float new_x);
+    void change_y(float new_y);
+    void change_z(float new_z);
     void delete_vertices();
 };
 
-///////////////////////////////// Cone /////////////////////////////////
-
-
 
 ///////////////////////////////// Pyramid /////////////////////////////////
-
 class Pyramid{
 vector <float> vertices; // Vector used to store the vertices
 vector <float> color; // Vector used to store the color of the vertices
@@ -119,3 +120,29 @@ public:
     void display();
     void delete_vertices();
 };
+
+///////////////////////////////// Train /////////////////////////////////
+class Train{
+    float x, y, z;
+    float l, w, h;
+    float r;
+    Sphere end1;
+    Sphere end2;
+
+    Rectangle b1;
+    Rectangle b2;
+    Rectangle b3;
+    Rectangle b4;
+    Rectangle lower;
+    public:
+
+    Train();
+    Train(float starting_x, float starting_y, float starting_z);
+    ~Train();
+    void make();
+    void buffer();
+    void display();
+    void change_x(float new_x);
+    void change_y(float new_y);
+    void change_z(float new_z);
+ };
