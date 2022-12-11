@@ -102,6 +102,7 @@ Background bg;
 // Pyramid pyr;
 
 // Train
+float k = 0;
 int t_x = 50;
 int t_y = -10;
 int t_z = -75;
@@ -259,10 +260,7 @@ void keyboard_func( unsigned char key, int x, int y )
 
 		case 'w': // Increment r radius (by a small value)
 		{
-			for(int i = 0; i < 10; i++){
-				move_train(-i, 0, 0);
-				CreateAxisBuffers();
-			}
+
 			break;
 		}
 
@@ -407,6 +405,15 @@ void display_func( void )
 	b3.display();
 	b4.display();
 
+	if(k < 10){
+		k+=0.01;
+		move_train(-k, 0, 0);
+		CreateAxisBuffers();
+	}
+	
+	cout << k << endl;
+
+
 	glBindVertexArray( 0 );
 
 	if( draw_wireframe == true )
@@ -444,6 +451,7 @@ void init( void )
 /*=================================================================================================
 	MAIN
 =================================================================================================*/
+
 int main( int argc, char** argv )
 {
 	glutInit( &argc, argv );
