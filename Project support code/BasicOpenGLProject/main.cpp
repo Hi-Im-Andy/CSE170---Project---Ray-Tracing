@@ -64,7 +64,50 @@ void window_to_scene( int wx, int wy, float& sx, float& sy )
 	SHADERS
 =================================================================================================*/
 
-void CreateTransformationMatrices( void )
+bool switchView = false;
+
+void CreateTransformationMatrices(float k) {
+
+	// PROJECTION MATRIX
+	PerspProjectionMatrix = glm::perspective<float>(glm::radians(60.0f), (float)WindowWidth / (float)WindowHeight, 0.01f, 1000.0f);
+	//camera positiom
+	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0, 2.0);
+	//Camera direction
+	glm::vec3 cameraTarget = glm::vec3(0.0, 0.0, 0.0);
+	glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
+	// right axis/vector represents x-axis 
+	glm::vec3 up1 = glm::vec3(0.0, 1.0, 0.0);
+	glm::vec3 cameraRight = glm::normalize(glm::cross(up1, cameraDirection));
+	//up axis
+	// once x and z is found from above, this retrieves the positive y-axis by taking
+	// the cross product of right and direction vector.
+	glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
+
+	// VIEW MATRIX
+	
+	glm::vec3 eye(0.0, 0.0, 2.0);
+	glm::vec3 center(0.0, 0.0, 0.0);
+	glm::vec3 up(0.0, 1.0, 0.0);
+	// PerspViewMatrix = glm::lookAt(eye, center, cameraUp);
+	
+	//Rotation
+	// Recalculates the x&y coords each frame that represents a point on a circle. And thats use for
+	// camera position. Also recalculates x&y coords over time and this tranverses all the points in
+	// a circle and camera rotates. Radius can be changed.
+	const float radius = 70.0f;
+	auto camX = sin(k) * radius;
+	auto camZ = cos(k) * radius;
+	glm::mat4 view;
+	//view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+	PerspViewMatrix =  glm::lookAt(glm::vec3(camX, 30.0, camZ), glm::vec3(0.0, -10.0, -50.0), glm::vec3(0.0, 1.0, 0.0));
+	// MODEL MATRIX
+	glm::mat4 PerspModelMatrix = glm::mat4(1.0);
+	PerspModelMatrix = glm::rotate(PerspModelMatrix, glm::radians(perspRotationX), glm::vec3(1.0, 0.0, 0.0));
+	PerspModelMatrix = glm::rotate(PerspModelMatrix, glm::radians(perspRotationY), glm::vec3(0.0, 1.0, 0.0));
+	PerspModelMatrix = glm::scale(PerspModelMatrix, glm::vec3(perspZoom));
+}
+
+void CreateTransformationMatricesMovement( void )
 {
 	// PROJECTION MATRIX
 	PerspProjectionMatrix = glm::perspective<float>( glm::radians( 60.0f ), (float)WindowWidth / (float)WindowHeight, 0.01f, 1000.0f );
@@ -100,6 +143,8 @@ Background bg;
 // Rectangle rec;
 // Sphere sph;
 // Pyramid pyr;
+
+Rectangle floor1(100, 5, 100, -50, -16, -100);
 
 // Train
 float k = 0;
@@ -183,6 +228,8 @@ void CreateAxisBuffers( void )
 	// sph.buffer();
 	// pyr.buffer();
 
+	floor1.buffer();
+
 	// Row 1
 	r1b1.buffer();
 	r1b2.buffer();
@@ -260,7 +307,12 @@ void keyboard_func( unsigned char key, int x, int y )
 
 		case 'w': // Increment r radius (by a small value)
 		{
-
+			if(switchView){
+				switchView = false;
+			}
+			else{
+				switchView = true;
+			}
 			break;
 		}
 
@@ -355,8 +407,13 @@ void active_motion_func( int x, int y )
 void display_func( void )
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
-	CreateTransformationMatrices();
+	k+=0.005;
+	if(switchView){
+		CreateTransformationMatrices(k);
+	}
+	else{
+		CreateTransformationMatricesMovement();
+	}
 
 	PerspectiveShader.Use();
 	PerspectiveShader.SetUniform( "projectionMatrix", glm::value_ptr( PerspProjectionMatrix ), 4, GL_FALSE, 1 );
@@ -372,6 +429,8 @@ void display_func( void )
 	// rec.display();
 	// sph.display();
 	// pyr.display();
+
+	floor1.display();
 
 	r1b1.display();
 	r1b2.display();
@@ -406,11 +465,11 @@ void display_func( void )
 	b4.display();
 
 	if(k < 10){
-		k+=0.01;
+		// k+=0.01;
 		move_train(-k, 0, 0);
 		CreateAxisBuffers();
 	}
-	
+
 	cout << k << endl;
 
 
